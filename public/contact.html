@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5BK7KYPMRX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5BK7KYPMRX');
+</script>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1732201808432666');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1732201808432666&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<script>
+  function insportiaGenEventId(){
+    return 'evt_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+  }
+
+  function insportiaSendServerEvent(eventName, eventId, sourceUrl, link, value){
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        event_name: eventName,
+        event_id: eventId,
+        source_url: sourceUrl,
+        link: link,
+        value: value || null
+      })
+    }).catch(function(){});
+  }
+
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href*="t.me"]');
+    if(!a) return;
+
+    var linkText = (a.innerText || '').trim();
+    var lowerText = linkText.toLowerCase();
+
+    // Existing GA4 event (unchanged)
+    gtag('event', 'telegram_click', {
+      link_url: a.href,
+      page_location: window.location.pathname,
+      link_text: linkText.slice(0,60)
+    });
+
+    // Meta Pixel + Conversions API event mapping
+    var fbEventName = 'Lead';
+    var value = null;
+
+    if (lowerText.indexOf('vip+') !== -1) {
+      fbEventName = 'InitiateCheckout';
+      value = 29;
+    } else if (lowerText.indexOf('vip') !== -1) {
+      fbEventName = 'InitiateCheckout';
+      value = 19;
+    } else if (lowerText.indexOf('ask us') !== -1 || lowerText.indexOf('question') !== -1) {
+      fbEventName = 'Contact';
+    }
+
+    var eventId = insportiaGenEventId();
+    var fbParams = value ? { currency: 'USD', value: value } : {};
+
+    fbq('track', fbEventName, fbParams, { eventID: eventId });
+    insportiaSendServerEvent(fbEventName, eventId, window.location.href, a.href, value);
+  });
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact us — Insportia</title>
+<meta name="description" content="Contact Insportia — Telegram is our only official channel.">
+<link rel="canonical" href="https://insportia.org/contact.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--night:#111A2C;--night-2:#17233A;--line:#243550;--gold:#F5B62E;--gold-2:#FFD24A;--gold-3:#D89A18;
+--ink:#EDF2FA;--mut:#93A3BD;--white:#FFF;--radius:14px;--disp:'Poppins',sans-serif;--body:'Inter',sans-serif;
+--grad:linear-gradient(135deg,#FFD24A 0%,#F5B62E 45%,#D89A18 100%)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--body);background:var(--night);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+svg{display:block}
+.wrap{max-width:860px;margin:0 auto;padding:0 22px}
+header{position:sticky;top:0;z-index:50;background:rgba(17,26,44,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:1140px;margin:0 auto;padding:0 22px}
+.logo{display:flex;align-items:center;gap:11px}
+.logo-word{font-family:var(--disp);font-weight:700;font-size:22px;color:var(--white)}
+.logo-word span{color:var(--gold)}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--disp);font-weight:600;font-size:14px;padding:10px 20px;border-radius:11px;cursor:pointer;background:var(--grad);color:#201601;border:none;transition:transform .15s,box-shadow .15s}
+.btn:hover{box-shadow:0 8px 26px rgba(245,182,46,.4);transform:translateY(-2px)}
+main{padding:64px 0 80px}
+h1{font-family:var(--disp);font-size:clamp(28px,4vw,40px);color:var(--white);margin-bottom:8px}
+.sub{font-size:15px;color:var(--mut);margin-bottom:36px}
+h2{font-family:var(--disp);font-size:20px;color:var(--gold);margin:36px 0 12px}
+p,li{font-size:15px;color:var(--mut)}
+p{margin-bottom:14px}
+b,strong{color:var(--ink)}
+ul{margin:0 0 14px 22px}
+li{margin-bottom:8px}
+.card{background:var(--night-2);border:1px solid var(--line);border-radius:var(--radius);padding:26px;margin:22px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}
+.cell{background:var(--night-2);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.cell .n{font-family:var(--disp);font-weight:700;font-size:26px;color:var(--gold)}
+.cell .l{font-size:13px;color:var(--mut);margin-top:4px}
+.cell h3{font-family:var(--disp);font-size:16px;color:var(--white);margin-bottom:8px}
+.cell h3 span{color:var(--gold)}
+.center{text-align:center}
+.bigbtn{justify-content:center;padding:15px 34px;font-size:15.5px}
+@media(max-width:620px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="logo" href="index.html" aria-label="Insportia home">
+      <svg width="36" height="36" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs><linearGradient id="gld" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#FFD24A"/><stop offset=".5" stop-color="#F5B62E"/><stop offset="1" stop-color="#D89A18"/>
+        </linearGradient></defs>
+        <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#gld)"/>
+        <rect x="27.5" y="27" width="9" height="26" rx="2.5" fill="#111A2C"/>
+        <circle cx="32" cy="16.5" r="8" fill="#FFF" stroke="#111A2C" stroke-width="2.2"/>
+        <polygon points="32,12.7 35.4,15.2 34.1,19.2 29.9,19.2 28.6,15.2" fill="#111A2C"/>
+      </svg>
+      <span class="logo-word">In<span>sportia</span></span>
+    </a>
+    <a class="btn" href="https://t.me/insportia" target="_blank" rel="noopener">✈ Telegram</a>
+  </div>
+</header>
+<main>
+<div class="wrap">
+<h1>Contact us</h1>
+<p class="sub">One tap away, on Telegram.</p>
+<p>Telegram is our only official channel — for joining, questions, membership and everything else. It's where our team actually lives, so it's also where you get the fastest answers.</p>
+<p>Typical reply time: <b>under 2 hours</b>, every day of the week.</p>
+<div class="card center">
+<p style="margin-bottom:20px"><b>Whatever your question — just write to us.</b></p>
+<div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+<a class="btn bigbtn" href="https://t.me/insportia" target="_blank" rel="noopener">✈ Open our Telegram</a>
+</div>
+</div>
+<h2>Before you write</h2>
+<ul>
+<li><b>Joining:</b> the free channel is open to everyone — just tap the button above and press Join.</li>
+<li><b>Membership plans:</b> message us the plan name (VIP or VIP+) and we'll set you up in minutes.</li>
+<li><b>Partnerships:</b> see our <a href="partners.html" style="color:var(--gold);border-bottom:1px dashed var(--gold-3)">Become a partner</a> page first, then write to us.</li>
+</ul>
+</div>
+</main>
+<footer style="padding:40px 0;border-top:1px solid var(--line)">
+  <div style="max-width:1140px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:13.5px;color:var(--mut)" class="foot">
+      <div class="links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About us</a>
+        <a href="why-us.html">Why us</a>
+        <a href="partners.html">Become a partner</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy policy</a>
+        <a href="contact.html">Contact us</a>
+      </div>
+      <div class="links" style="display:flex;gap:22px;flex-wrap:wrap">
+        <a href="https://t.me/insportia" target="_blank" rel="noopener">Telegram</a>
+        <a href="mailto:support@insportia.org">support@insportia.org</a>
+      </div>
+  </div>
+  <style>.foot .links{display:flex;gap:22px;flex-wrap:wrap}.foot a:hover{color:var(--gold)}</style>
+</footer>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e2edf7e0eacb40589065ebeaa257e13e"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
