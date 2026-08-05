@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5BK7KYPMRX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5BK7KYPMRX');
+</script>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1732201808432666');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1732201808432666&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<script>
+  function insportiaGenEventId(){
+    return 'evt_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+  }
+
+  function insportiaSendServerEvent(eventName, eventId, sourceUrl, link, value){
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        event_name: eventName,
+        event_id: eventId,
+        source_url: sourceUrl,
+        link: link,
+        value: value || null
+      })
+    }).catch(function(){});
+  }
+
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href*="t.me"]');
+    if(!a) return;
+
+    var linkText = (a.innerText || '').trim();
+    var lowerText = linkText.toLowerCase();
+
+    // Existing GA4 event (unchanged)
+    gtag('event', 'telegram_click', {
+      link_url: a.href,
+      page_location: window.location.pathname,
+      link_text: linkText.slice(0,60)
+    });
+
+    // Meta Pixel + Conversions API event mapping
+    var fbEventName = 'Lead';
+    var value = null;
+
+    if (lowerText.indexOf('vip+') !== -1) {
+      fbEventName = 'InitiateCheckout';
+      value = 29;
+    } else if (lowerText.indexOf('vip') !== -1) {
+      fbEventName = 'InitiateCheckout';
+      value = 19;
+    } else if (lowerText.indexOf('ask us') !== -1 || lowerText.indexOf('question') !== -1) {
+      fbEventName = 'Contact';
+    }
+
+    var eventId = insportiaGenEventId();
+    var fbParams = value ? { currency: 'USD', value: value } : {};
+
+    fbq('track', fbEventName, fbParams, { eventID: eventId });
+    insportiaSendServerEvent(fbEventName, eventId, window.location.href, a.href, value);
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terms & Conditions — Insportia</title>
+<meta name="description" content="Insportia Terms & Conditions: service rules, subscriptions, refunds and disclaimers.">
+<link rel="canonical" href="https://insportia.org/terms.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--night:#111A2C;--night-2:#17233A;--line:#243550;--gold:#F5B62E;--gold-2:#FFD24A;--gold-3:#D89A18;
+--ink:#EDF2FA;--mut:#93A3BD;--white:#FFF;--radius:14px;--disp:'Poppins',sans-serif;--body:'Inter',sans-serif;
+--grad:linear-gradient(135deg,#FFD24A 0%,#F5B62E 45%,#D89A18 100%)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--body);background:var(--night);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+svg{display:block}
+.wrap{max-width:860px;margin:0 auto;padding:0 22px}
+header{position:sticky;top:0;z-index:50;background:rgba(17,26,44,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:1140px;margin:0 auto;padding:0 22px}
+.logo{display:flex;align-items:center;gap:11px}
+.logo-word{font-family:var(--disp);font-weight:700;font-size:22px;color:var(--white)}
+.logo-word span{color:var(--gold)}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--disp);font-weight:600;font-size:14px;padding:10px 20px;border-radius:11px;cursor:pointer;background:var(--grad);color:#201601;border:none;transition:transform .15s,box-shadow .15s}
+.btn:hover{box-shadow:0 8px 26px rgba(245,182,46,.4);transform:translateY(-2px)}
+main{padding:64px 0 80px}
+h1{font-family:var(--disp);font-size:clamp(28px,4vw,40px);color:var(--white);margin-bottom:8px}
+.upd{font-size:13px;color:var(--mut);margin-bottom:36px}
+h2{font-family:var(--disp);font-size:20px;color:var(--gold);margin:36px 0 12px}
+p,li{font-size:15px;color:var(--mut)}
+p{margin-bottom:14px}
+b,strong{color:var(--ink)}
+ul,ol{margin:0 0 14px 22px}
+li{margin-bottom:8px}
+a.inline{color:var(--gold);border-bottom:1px dashed var(--gold-3)}
+.card{background:var(--night-2);border:1px solid var(--line);border-radius:var(--radius);padding:26px;margin:22px 0}
+footer{padding:40px 0;border-top:1px solid var(--line)}
+.foot{max-width:1140px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:13.5px;color:var(--mut)}
+.foot a:hover{color:var(--gold)}
+.foot .links{display:flex;gap:22px;flex-wrap:wrap}
+/* partner form */
+label{display:block;font-family:var(--disp);font-size:13px;color:var(--ink);margin:16px 0 7px;font-weight:600}
+input,select,textarea{width:100%;background:#0E1728;border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--ink);font-family:var(--body);font-size:14.5px;outline:none;transition:border-color .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+textarea{min-height:110px;resize:vertical}
+.hint{font-size:12.5px;color:var(--mut);margin-top:12px}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="logo" href="index.html" aria-label="Insportia home">
+      <svg width="36" height="36" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs><linearGradient id="gld" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#FFD24A"/><stop offset=".5" stop-color="#F5B62E"/><stop offset="1" stop-color="#D89A18"/>
+        </linearGradient></defs>
+        <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#gld)"/>
+        <rect x="27.5" y="27" width="9" height="26" rx="2.5" fill="#111A2C"/>
+        <circle cx="32" cy="16.5" r="8" fill="#FFF" stroke="#111A2C" stroke-width="2.2"/>
+        <polygon points="32,12.7 35.4,15.2 34.1,19.2 29.9,19.2 28.6,15.2" fill="#111A2C"/>
+      </svg>
+      <span class="logo-word">In<span>sportia</span></span>
+    </a>
+    <a class="btn" href="https://t.me/insportia" target="_blank" rel="noopener">✈ Telegram</a>
+  </div>
+</header>
+<main>
+<div class="wrap">
+<h1>Terms &amp; Conditions</h1>
+<p class="upd">Last updated: 30 July 2026</p>
+
+<p>Welcome to Insportia. These Terms &amp; Conditions ("Terms") govern your access to and use of the website insportia.org, our Telegram channels and any paid membership plans (together, the "Service"). By using the Service you agree to these Terms. If you do not agree, please do not use the Service.</p>
+
+<h2>1. What Insportia is — and what it is not</h2>
+<p>Insportia provides <b>sports analysis, statistics, commentary and educational content</b> prepared by our analyst team. The Service is informational and for entertainment purposes only.</p>
+<ul>
+<li>We are <b>not a gambling operator</b>, bookmaker or betting exchange. We do not accept, place or facilitate wagers of any kind.</li>
+<li>Our content is <b>not financial, investment or gambling advice</b>. Every conclusion we publish is an opinion based on analysis, and you are solely responsible for any decisions you make.</li>
+<li><b>We do not guarantee outcomes.</b> Sport is inherently unpredictable and past performance never guarantees future results.</li>
+</ul>
+
+<h2>2. Eligibility</h2>
+<p>You must be at least <b>18 years old</b> (or the age of majority in your jurisdiction, whichever is higher) to use the Service. By using the Service you confirm that you meet this requirement and that using the Service is lawful in your country of residence. The Service is not directed at any jurisdiction where its use would be unlawful.</p>
+
+<h2>3. Free content and paid plans</h2>
+<p>Our free Telegram channel is available at no cost. Paid plans (VIP and VIP+) unlock additional analyses and features as described on our website at the time of purchase.</p>
+<ul>
+<li><b>Billing.</b> Paid plans are billed monthly in advance. Prices are shown in USD and may be subject to taxes or payment-provider fees depending on your location.</li>
+<li><b>Cancellation.</b> You may cancel at any time; access continues until the end of the paid period and no further charges are made.</li>
+<li><b>Refunds.</b> Because content is delivered digitally and immediately, payments for a started billing period are non-refundable, except where required by applicable consumer law. If something went wrong with your order, contact us and we will try to make it right.</li>
+<li><b>Changes to plans.</b> We may change plan features or pricing with reasonable notice; changes apply from your next billing period.</li>
+</ul>
+
+<h2>4. Monthly giveaway</h2>
+<p>Active subscribers may be entered into a monthly giveaway as described on our website. <b>No additional purchase is necessary</b> beyond an active subscription, winners are selected at random, one entry per subscriber, and prizes have no cash value and are non-transferable. The giveaway is void where prohibited by law and is not sponsored, endorsed or administered by Telegram or any social platform.</p>
+
+<h2>5. Voluntary donations</h2>
+<p>Donations to support our free content are entirely voluntary, are not payment for any product or service, do not create any obligation on our part, and are non-refundable.</p>
+
+<h2>6. Acceptable use</h2>
+<p>You agree not to: (a) resell, redistribute, scrape or republish our content without written permission; (b) share paid-channel access with non-subscribers; (c) use the Service for any unlawful purpose; (d) misrepresent our content as guarantees of profit; or (e) attempt to disrupt or reverse-engineer any part of the Service. We may suspend or terminate access for violations without refund.</p>
+
+<h2>7. Intellectual property</h2>
+<p>All content on the Service — analyses, text, graphics, logos and branding — is owned by Insportia or its licensors and protected by copyright and trademark laws. You receive a personal, non-exclusive, non-transferable licence to view the content for private, non-commercial use only.</p>
+
+<h2>8. Third-party services</h2>
+<p>The Service links to and operates through third-party platforms (such as Telegram) and displays publicly available sports fixture data. We are not responsible for third-party services, their availability or their content, and their own terms apply to your use of them.</p>
+
+<h2>9. Disclaimer of warranties</h2>
+<p>The Service is provided "as is" and "as available", without warranties of any kind, express or implied, including accuracy, completeness, fitness for a particular purpose or uninterrupted availability. Sports data shown on the website is sourced from third parties and may contain errors or delays.</p>
+
+<h2>10. Limitation of liability</h2>
+<p>To the maximum extent permitted by law, Insportia and its team shall not be liable for any indirect, incidental, consequential or special damages, or for any loss of money, profits or opportunities arising from your use of, or reliance on, the Service. Where liability cannot be excluded, it is limited to the amount you paid us in the three months preceding the claim.</p>
+
+<h2>11. Responsible engagement</h2>
+<p>If you choose to engage with games of chance in your own jurisdiction, do so responsibly and only where legal for you. Never spend money you cannot afford to lose. If you feel your habits are becoming a problem, seek help from a qualified local support organisation.</p>
+
+<h2>12. Changes to these Terms</h2>
+<p>We may update these Terms from time to time. The "Last updated" date above reflects the latest version, and continued use of the Service after changes constitutes acceptance. Material changes to paid plans will be communicated in advance.</p>
+
+<h2>13. Governing law and contact</h2>
+<p>These Terms are governed by the laws of Georgia, without prejudice to any mandatory consumer protections of your country of residence. Questions about these Terms: <a class="inline" href="https://t.me/insportia" target="_blank" rel="noopener">Telegram</a> or <a class="inline" href="mailto:support@insportia.org">support@insportia.org</a>.</p>
+</div>
+</main>
+<footer>
+  <div class="foot">
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About us</a>
+      <a href="why-us.html">Why us</a>
+      <a href="partners.html">Become a partner</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
+      <a href="privacy.html">Privacy policy</a>
+      <a href="contact.html">Contact us</a>
+    </div>
+    <div class="links">
+      <a href="https://t.me/insportia" target="_blank" rel="noopener">Telegram</a>
+      <a href="mailto:support@insportia.org">support@insportia.org</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e2edf7e0eacb40589065ebeaa257e13e"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
